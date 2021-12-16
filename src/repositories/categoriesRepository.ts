@@ -6,7 +6,7 @@ interface ICreateCategoryDTO {
 	description: string;
 }
 
-class CategoryRepository {
+class CategoriesRepository {
 	// Define que categories será um array privado de Category
 	private categories: Category[];
 
@@ -28,6 +28,10 @@ class CategoryRepository {
 
 		this.categories.push(category);
 	}
+
+	list(): Category[] {
+		return this.categories;
+	}
 }
 
-export { CategoryRepository };
+export { CategoriesRepository };

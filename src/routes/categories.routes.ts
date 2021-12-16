@@ -1,16 +1,24 @@
 import { Router } from "express";
 
-import { CategoryRepository } from "../repositories/categoriesRepository";
+import { CategoriesRepository } from "../repositories/categoriesRepository";
 
 const categoriesRoutes = Router();
-const categoryRepository = new CategoryRepository();
+const categoriesRepository = new CategoriesRepository();
 
+// Cria uma nova categoria
 categoriesRoutes.post("/", (req, res) => {
   const { name, description } = req.body;
 
-  categoryRepository.crete({ name, description });
+  categoriesRepository.crete({ name, description });
 
   return res.status(201).send();
+});
+
+// Lista as categorias
+categoriesRoutes.get("/", (req, res) => {
+  const all = categoriesRepository.list();
+
+  return res.status(200).json(all);
 });
 
 export { categoriesRoutes };
