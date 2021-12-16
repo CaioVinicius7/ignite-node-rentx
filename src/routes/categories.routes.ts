@@ -1,26 +1,14 @@
 import { Router } from "express";
 
-import { Category } from "../models/category";
+import { CategoryRepository } from "../repositories/categoriesRepository";
 
 const categoriesRoutes = Router();
-
-// Define que categories será um array de Category
-const categories: Category[] = [];
+const categoryRepository = new CategoryRepository();
 
 categoriesRoutes.post("/", (req, res) => {
   const { name, description } = req.body;
 
-  // Chama o construtor para definir o id
-  const category: Category = new Category();
-
-  // Adiciona as atributos ao objeto
-  Object.assign(category, {
-    name,
-    description,
-    created_at: new Date()
-  });
-
-  categories.push(category);
+  categoryRepository.crete({ name, description });
 
   return res.status(201).send();
 });

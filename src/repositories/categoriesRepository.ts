@@ -1,0 +1,33 @@
+import { Category } from "../models/category";
+
+// DTO => data transfer object
+interface ICreateCategoryDTO {
+	name: string;
+	description: string;
+}
+
+class CategoryRepository {
+	// Define que categories será um array privado de Category
+	private categories: Category[];
+
+	constructor() {
+		// Define categories como um array vazio ao inicializar a classe
+		this.categories = [];
+	}
+
+	crete({ description, name }: ICreateCategoryDTO): void {
+		// Chama o construtor para definir o id
+		const category: Category = new Category();
+
+		// Adiciona as atributos ao objeto
+		Object.assign(category, {
+			name,
+			description,
+			created_at: new Date()
+		});
+
+		this.categories.push(category);
+	}
+}
+
+export { CategoryRepository };
