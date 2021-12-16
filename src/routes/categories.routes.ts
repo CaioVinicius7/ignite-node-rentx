@@ -1,33 +1,27 @@
 import { Router } from "express";
 
-import { CategoriesRepository } from "../repositories/categoriesRepository";
+import { CategoriesRepository } from "../repositories/CategoriesRepository";
+import { CreateCategorySerice } from "../services/CreateCategoryService";
 
 const categoriesRoutes = Router();
 const categoriesRepository = new CategoriesRepository();
 
 // Cria uma nova categoria
 categoriesRoutes.post("/", (req, res) => {
-  const { name, description } = req.body;
-	
-	// Verifica se já existe uma categoria cadastrada com esse nome
-	const categoryAlreadyExists = categoriesRepository.findByName(name); 
+	const { name, description } = req.body;
 
-	if(categoryAlreadyExists){
-		return res.status(400).json({
-			error: "category already exists"
-		});
-	}
+	const createCategoryServer = new CreateCategorySerice(categoriesRepository);
 
-  categoriesRepository.crete({ name, description });
+	createCategoryServer.execute({ name, description });
 
-  return res.status(201).send();
+	return res.status(201).send();
 });
 
 // Lista as categorias
 categoriesRoutes.get("/", (req, res) => {
-  const all = categoriesRepository.list();
+	const all = categoriesRepository.list();
 
-  return res.status(200).json(all);
+	return res.status(200).json(all);
 });
 
 export { categoriesRoutes };
