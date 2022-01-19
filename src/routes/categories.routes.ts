@@ -1,11 +1,9 @@
 import { Router } from "express";
 
-import { CategoriesRepository } from "../modules/cars/repositories/CategoriesRepository";
 import { createCategoryController } from "../modules/cars/useCases/createCategory";
-import { CreateCategoryUseCase } from "../modules/cars/useCases/createCategory/CreateCategoryUseCase";
+import { listCategoriesController } from "../modules/cars/useCases/listCategories";
 
 const categoriesRoutes = Router();
-const categoriesRepository = new CategoriesRepository();
 
 // Cria uma nova categoria
 categoriesRoutes.post("/", (req, res) => {
@@ -14,9 +12,7 @@ categoriesRoutes.post("/", (req, res) => {
 
 // Lista as categorias
 categoriesRoutes.get("/", (req, res) => {
-	const all = categoriesRepository.list();
-
-	return res.status(200).json(all);
+	return listCategoriesController.handle(req, res);
 });
 
 export { categoriesRoutes };
