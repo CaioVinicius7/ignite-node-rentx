@@ -24,6 +24,7 @@
         "comma-dangle": ["error", "never"], // Tira a vírgula do final de objetos, arrays, etc...
       //   "eol-last": ["error", "never"], // Tira a necessidade da ultima linha vazia no final do código 
       //   "indent": ["error", "tab"], // Define o tabsize 
+				"no-use-before-define": "off",
         "camelcase": "off",
         "import/no-unresolved": "error",
         "@typescript-eslint/naming-convention": [
