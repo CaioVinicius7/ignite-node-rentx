@@ -4,9 +4,9 @@ import swaggerUi from "swagger-ui-express";
 
 import "./database";
 
-import "./shared/container";
+import "@shared/container";
+import { AppError } from "@errors/AppErro";
 
-import { AppError } from "./errors/appErro";
 import { router } from "./routes";
 import swaggerFile from "./swagger.json";
 
