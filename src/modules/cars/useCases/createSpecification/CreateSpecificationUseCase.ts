@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { ISpecificationRepository } from "@modules/cars/repositories/ISpecificationRepository";
+import { ISpecificationRepository } from "@modules/cars/repositories/ISpecificationsRepository";
 import { AppError } from "@shared/errors/AppErro";
 
 interface IRequest {
@@ -11,7 +11,7 @@ interface IRequest {
 @injectable()
 class CreateSpecificationUseCase {
 	constructor(
-		@inject("SpecificationRepository")
+		@inject("SpecificationsRepository")
 		private specificationsRepository: ISpecificationRepository
 	) {}
 

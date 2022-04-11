@@ -4,10 +4,10 @@ import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/Us
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { CarsRepository } from "@modules/cars/infra/typeorm/repositories/CarsRepository";
 import { CategoriesRepository } from "@modules/cars/infra/typeorm/repositories/CategoriesRepository";
-import { SpecificationRepository } from "@modules/cars/infra/typeorm/repositories/SpecificationRepository";
+import { SpecificationsRepository } from "@modules/cars/infra/typeorm/repositories/SpecificationsRepository";
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 import { ICategoriesRepository } from "@modules/cars/repositories/ICategoriesRepository";
-import { ISpecificationRepository } from "@modules/cars/repositories/ISpecificationRepository";
+import { ISpecificationRepository } from "@modules/cars/repositories/ISpecificationsRepository";
 
 /* Toda vez que for chamado CategoriesRepository com o inject será
    resposavel por instanciar a clasee CategoriesRepository 
@@ -20,8 +20,8 @@ container.registerSingleton<ICategoriesRepository>(
 );
 
 container.registerSingleton<ISpecificationRepository>(
-	"SpecificationRepository",
-	SpecificationRepository
+	"SpecificationsRepository",
+	SpecificationsRepository
 );
 
 container.registerSingleton<IUsersRepository>(
