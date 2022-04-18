@@ -3,7 +3,7 @@ import { inject, injectable } from "tsyringe";
 import { Car } from "@modules/cars/infra/typeorm/entities/car";
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 import { ISpecificationRepository } from "@modules/cars/repositories/ISpecificationsRepository";
-import { AppError } from "@shared/errors/AppErro";
+import { AppError } from "@shared/errors/AppError";
 
 interface IRequest {
 	car_id: string;
