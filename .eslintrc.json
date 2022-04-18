@@ -60,11 +60,14 @@
             "alphabetize": { "order": "asc", "ignoreCase": true }
           }
         ],
+        "prettier/prettier": "error",
+				// Remove o erro de dev dependencies 
         "import/no-extraneous-dependencies": [
-          "error",
-          { "devDependencies": ["**/*.spec.js"] }
-        ],
-        "prettier/prettier": "error"
+					"error",
+						{
+						 "devDependencies": ["**/*.spec.ts"]
+						}
+				]
     },
     "settings": {
       "import/resolver": {

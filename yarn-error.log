@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\caio\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add ts-jest -D
+  C:\Program Files\nodejs\node.exe C:\Users\caio\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add supertest @types/supertest -D
 
 PATH: 
   C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files\Redis\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\caio\AppData\Local\Microsoft\WindowsApps;C:\Users\caio\AppData\Roaming\npm;C:\Users\caio\AppData\Local\Programs\Microsoft VS Code\bin
@@ -24,13 +24,15 @@ npm manifest:
     "author": "caio vinícius",
     "license": "MIT",
     "scripts": {
-      "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
+      "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
       "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli",
-      "test": "jest"
+      "test": "jest",
+      "seed:admin": "ts-node-dev src/shared/infra/typeorm/seed/admin.ts"
     },
     "dependencies": {
       "bcryptjs": "^2.4.3",
       "csv-parse": "^5.0.4",
+      "dayjs": "^1.11.0",
       "express": "^4.17.1",
       "express-async-errors": "^3.1.1",
       "jsonwebtoken": "^8.5.1",
@@ -62,6 +64,7 @@ npm manifest:
       "eslint-plugin-prettier": "^4.0.0",
       "jest": "^27.5.1",
       "prettier": "^2.5.1",
+      "ts-jest": "^27.1.4",
       "ts-node-dev": "^1.1.8",
       "tsconfig-paths": "^3.14.1",
       "typescript": "^4.5.4"
@@ -1516,6 +1519,11 @@ Lockfile:
       abab "^2.0.3"
       whatwg-mimetype "^2.3.0"
       whatwg-url "^8.0.0"
+  
+  dayjs@^1.11.0:
+    version "1.11.0"
+    resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.0.tgz#009bf7ef2e2ea2d5db2e6583d2d39a4b5061e805"
+    integrity sha512-JLC809s6Y948/FuCZPm5IX8rRhQwOiyMb2TfVVQEixG7P8Lm/gt5S7yoQZmC8x1UehI9Pb7sksEt4xx14m+7Ug==
   
   debug@2.6.9, debug@^2.6.9:
     version "2.6.9"
