@@ -13,6 +13,8 @@ services:
       - POSTGRES_DB=rentx
     volumes: 
       - pgdata:/data/postgres
+    networks:
+      - ignite_network
 
   app:
     build: .
@@ -21,11 +23,15 @@ services:
       - 3333:3333
     volumes:
       - .:/usr/app
-    links:
-      - database
     depends_on:
       - database
+    networks:
+      - ignite_network
 
 volumes:
   pgdata:
     driver: local
+
+networks:
+  ignite_network:
+    driver: bridge
