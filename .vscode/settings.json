@@ -3,6 +3,7 @@
     "Anthenticated",
     "dtos",
     "middlewares",
+    "openapi",
     "originalname",
     "rentx",
     "tsyringe",
