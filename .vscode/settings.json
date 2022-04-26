@@ -3,6 +3,7 @@
     "Anthenticated",
     "dtos",
     "middlewares",
+    "originalname",
     "rentx",
     "tsyringe",
     "typeorm"
