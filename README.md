@@ -52,11 +52,12 @@ Não deve ser possível cadastrar um novo aluguel caso já exista um aberto para
 Não deve ser possível cadastrar um novo aluguel caso já exista um aberto para o mesmo carro. <br>
 O usuário deve estar logado na aplicação. <br>
 Ao realizar um alugel o status do carro deverá ser alterado para indisponível.
-,
+
 # Devolução de carro
 Se o carro for devolvido com menos de 24 horas, deverá ser cobrada diária completa. <br>
 Ao realizar a dvolução, o carro deverá ser liberado para outro aluguel. <br>
 Ao realizar a devolução, o usuário deverá ser liberado oara outro aluguel. <br>
 Ao realizar a devolução, deverá ser calculado o total do aluguel. <br>
 Caso o horário de devolução seja superior ao horário previsto de entrega, deverá ser cobrado multa proporcional aos dias de atraso. <br>
-caso haja multa, deverá ser somado ao valor total do aluguel.  
+caso haja multa, deverá ser somado ao valor total do aluguel.  <br>
+O usuário deve estar logado na aplicação. 
