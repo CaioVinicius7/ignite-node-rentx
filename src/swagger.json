@@ -134,7 +134,7 @@
 						"description": "Created"
 					},
 					"500": {
-						"description": "Sprecification already exists!"
+						"description": "Specification already exists!"
 					}
 				}
 			}
