@@ -13,7 +13,7 @@ class SendForgotPasswordMailController {
 
 		await sendForgotPasswordMailUseCase.execute(email);
 
-		return res.send();
+		return res.status(200).send();
 	}
 }
 
