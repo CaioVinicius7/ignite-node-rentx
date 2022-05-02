@@ -12,8 +12,6 @@ class RefreshTokenController {
 
 		const refresh_token = await refreshTokenUseCase.execute(token);
 
-		console.log(refresh_token);
-
 		return res.status(200).json(refresh_token);
 	}
 }
