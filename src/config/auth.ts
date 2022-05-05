@@ -3,5 +3,7 @@ import "dotenv";
 export const auth = {
 	expires_in_token: "15m",
 	expires_in_refresh_token: "30d",
-	expires_refresh_token_days: 30
+	expires_refresh_token_days: 30,
+	secret_token: process.env.SECRET_TOKEN,
+	secret_refresh_token: process.env.SECRET_REFRESH_TOKEN
 };

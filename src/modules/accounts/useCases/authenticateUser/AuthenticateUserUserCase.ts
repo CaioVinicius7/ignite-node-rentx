@@ -39,7 +39,9 @@ class AuthenticateUserUseCase {
 		const {
 			expires_in_token,
 			expires_in_refresh_token,
-			expires_refresh_token_days
+			expires_refresh_token_days,
+			secret_token,
+			secret_refresh_token
 		} = auth;
 
 		if (!user) {
@@ -52,7 +54,7 @@ class AuthenticateUserUseCase {
 			throw new AppError("Email or password incorrect!");
 		}
 
-		const token = sign({}, process.env.SECRET_TOKEN, {
+		const token = sign({}, secret_token, {
 			subject: user.id,
 			expiresIn: expires_in_token
 		});
@@ -61,7 +63,7 @@ class AuthenticateUserUseCase {
 			{
 				email
 			},
-			process.env.SECRET_REFRESH_TOKEN,
+			secret_refresh_token,
 			{
 				subject: user.id,
 				expiresIn: expires_in_refresh_token
