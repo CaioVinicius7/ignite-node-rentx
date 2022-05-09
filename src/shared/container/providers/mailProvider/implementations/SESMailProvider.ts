@@ -1,32 +1,29 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { SES } from "aws-sdk";
 import fs from "fs";
 import handlebars from "handlebars";
 import nodemailer, { Transporter } from "nodemailer";
 import { injectable } from "tsyringe";
 
+import { AppError } from "@shared/errors/AppError";
+
 import { IMailProvider } from "../IMailProvider";
 
 @injectable()
-class EtherealMailProvider implements IMailProvider {
+class SESMailProvider implements IMailProvider {
 	private client: Transporter;
 
 	constructor() {
-		nodemailer
-			.createTestAccount()
-			.then((account) => {
-				const transporter = nodemailer.createTransport({
-					host: account.smtp.host,
-					port: account.smtp.port,
-					secure: account.smtp.secure,
-					auth: {
-						user: account.user,
-						pass: account.pass
-					}
-				});
-
-				this.client = transporter;
-			})
-			.catch((err) => console.error(err));
+		try {
+			this.client = nodemailer.createTransport({
+				SES: new SES({
+					apiVersion: "2010-12-01",
+					region: process.env.AWS_REGION
+				})
+			});
+		} catch (err) {
+			throw new AppError(`SES Error - ${err.message}`);
+		}
 	}
 
 	async sendMail(
@@ -39,16 +36,13 @@ class EtherealMailProvider implements IMailProvider {
 		const templateParse = handlebars.compile(templateFileContent);
 		const templateHTML = templateParse(variables);
 
-		const message = await this.client.sendMail({
+		await this.client.sendMail({
 			to,
 			from: "Rentx <caio@ignite-project.nl>",
 			subject,
 			html: templateHTML
 		});
-
-		console.log(`Message sent: ${message.messageId}`);
-		console.log(`Preview URL: ${nodemailer.getTestMessageUrl(message)}`);
 	}
 }
 
-export { EtherealMailProvider };
+export { SESMailProvider };
