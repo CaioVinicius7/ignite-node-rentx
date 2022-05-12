@@ -5,13 +5,243 @@
 		"description": "This is an API Rent",
 		"version": "1.0.0",
 		"contact": {
-			"email":"caio1525pereira@gmail.com"
+			"email": "caio1525pereira@gmail.com"
 		}
 	},
 	"paths": {
+		"/sessions": {
+			"post": {
+				"tags": [
+					"Authenticate"
+				],
+				"summary": "Authentication user",
+				"description": "Authentication user",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"email": {
+										"type": "string",
+										"format": "email"
+									},
+									"password": {
+										"type": "string",
+										"format": "password"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/definitions/Token"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Email or password incorrect!"
+					}
+				}
+			}
+		},
+		"/refresh-token": {
+			"post": {
+				"tags": [
+					"Authenticate"
+				],
+				"summary": "Get a new token and refresh token",
+				"description": "Get a new token and refresh token using refresh token",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"token": {
+										"type": "string"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/definitions/RefreshToken"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Refresh Token does not exists!"
+					}
+				}
+			}
+		},
+		"/password/forgot": {
+			"post": {
+				"tags": [
+					"Forgot Password"
+				],
+				"summary": "Send mail to reset forgot password",
+				"description": "Send mail to reset forgot password",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/definitions/ForgotPassword"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Success"
+					},
+					"400": {
+						"description": "User does not exists!"
+					}
+				}
+			}
+		},
+		"/password/reset": {
+			"post": {
+				"tags": [
+					"Forgot Password"
+				],
+				"summary": "Reset password",
+				"description": "Reset password",
+				"parameters": [
+					{
+						"name": "token",
+						"in": "query",
+						"description": "Token received by email to reset password",
+						"format": "uuid",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/definitions/ResetPassword"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Success"
+					},
+					"400": {
+						"description": "Token Invalid! or Token expired!"
+					}
+				}
+			}
+		},
+		"/users": {
+			"post": {
+				"tags": [
+					"Users"
+				],
+				"summary": "Create a new user account",
+				"description": "Create a new user account",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/definitions/NewUser"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Created"
+					}
+				}
+			}
+		},
+		"/users/profile": {
+			"get": {
+				"tags": [
+					"Users"
+				],
+				"summary": "Get user profile",
+				"description": "get authenticate user profile",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/definitions/UserProfile"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/users/avatar": {
+			"patch": {
+				"tags": [
+					"Users"
+				],
+				"summary": "Upload user avatar image",
+				"description": "Upload user avatar image",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"avatar": {
+										"type": "string",
+										"format": "binary"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"204": {
+						"description": "Success"
+					}
+				}
+			}
+		},
 		"/categories": {
 			"post": {
-				"tags": ["Category"],
+				"tags": [
+					"Categories"
+				],
 				"summary": "Create a category",
 				"description": "Create a new category",
 				"security": [
@@ -44,13 +274,15 @@
 					"201": {
 						"description": "Created"
 					},
-					"500": {
+					"400": {
 						"description": "Category already exists"
 					}
 				}
 			},
 			"get": {
-				"tags": ["Category"],
+				"tags": [
+					"Categories"
+				],
 				"summary": "List all categories",
 				"description": "List all categories",
 				"responses": {
@@ -76,11 +308,13 @@
 						}
 					}
 				}
-			}   
+			}
 		},
 		"/categories/import": {
 			"post": {
-				"tags": ["Category"],
+				"tags": [
+					"Categories"
+				],
 				"summary": "Upload new category",
 				"description": "Upload a new category",
 				"security": [
@@ -112,7 +346,9 @@
 		},
 		"/specifications": {
 			"post": {
-				"tags": ["specifications"],
+				"tags": [
+					"Specifications"
+				],
 				"summary": "Create a specification",
 				"description": "Create a new specification",
 				"security": [
@@ -139,41 +375,11 @@
 				}
 			}
 		},
-		"/sessions": {
-			"post": {
-				"tags": ["Session"],
-				"summary": "Authentication user",
-				"description": "Authentication user",
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-									"email": {
-										"type": "string"
-									},
-									"password": {
-										"type": "string"
-									}
-								}
-							}
-						}
-					}
-				},
-				"responses": {
-					"200": {
-						"description": "Success"
-					},
-					"400": {
-						"description": "Email or password incorrect!"
-					}
-				}
-			}
-		},
 		"/cars": {
 			"post": {
-				"tags": ["Cars"],
+				"tags": [
+					"Cars"
+				],
 				"summary": "Create a new car",
 				"description": "Create a new car",
 				"security": [
@@ -192,7 +398,14 @@
 				},
 				"responses": {
 					"201": {
-						"description": "Created"
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/definitions/CreatedCar"
+								}
+							}
+						}
 					},
 					"400": {
 						"description": "Car already exists!"
@@ -202,9 +415,11 @@
 		},
 		"/cars/images/{id}": {
 			"post": {
-				"tags": ["Cars"],
-				"summary": "Upload images",
-				"description": "Upload images",
+				"tags": [
+					"Cars"
+				],
+				"summary": "Upload car images",
+				"description": "Upload car images",
 				"security": [
 					{
 						"bearerAuth": []
@@ -215,6 +430,7 @@
 						"name": "id",
 						"in": "path",
 						"description": "Car id",
+						"format": "uuid",
 						"required": true,
 						"schema": {
 							"type": "string"
@@ -242,6 +458,189 @@
 				"responses": {
 					"201": {
 						"description": "Created"
+					}
+				}
+			}
+		},
+		"/cars/specifications/{id}": {
+			"post": {
+				"tags": [
+					"Cars"
+				],
+				"summary": "Add car specifications",
+				"description": "Add car specifications",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Car id",
+						"format": "uuid",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/definitions/CarSpecifications"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/definitions/CreatedCarSpecifications"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/cars/available": {
+			"get": {
+				"tags": [
+					"Cars"
+				],
+				"summary": "List all available cars",
+				"description": "List all available cars",
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/definitions/AvailableCars"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/rentals": {
+			"post": {
+				"tags": [
+					"Rentals"
+				],
+				"summary": "Create a new rental",
+				"description": "Create a new rental",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"expected_return_date": {
+										"type": "string",
+										"format": "date-time"
+									},
+									"car_id": {
+										"type": "string",
+										"format": "uuid"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/definitions/CreatedRental"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Car is unavailable or There's a rental in progress for user! or Invalid return time!"
+					}
+				}
+			}
+		},
+		"/rentals/devolution/{id}": {
+			"post": {
+				"tags": [
+					"Rentals"
+				],
+				"summary": "Close the rental",
+				"description": "Close the rental",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Rental id",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": "uuid"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/definitions/DevolutionRental"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Rentals does not exists!"
+					}
+				}
+			}
+		},
+		"/rentals/user": {
+			"get": {
+				"tags": [
+					"Rentals"
+				],
+				"summary": "Get all user rentals",
+				"description": "Get all user rentals",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/definitions/AllUserRentals"
+								}
+							}
+						}
 					}
 				}
 			}
@@ -281,17 +680,417 @@
 					"type": "string"
 				},
 				"category_id": {
+					"type": "string",
+					"format": "uuid"
+				}
+			}
+		},
+		"CreatedCar": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string",
+					"format": "uuid"
+				},
+				"available": {
+					"type": "boolean"
+				},
+				"name": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				},
+				"daily_rate": {
+					"type": "number"
+				},
+				"license_plate": {
+					"type": "string"
+				},
+				"fine_amount": {
+					"type": "number"
+				},
+				"brand": {
+					"type": "string"
+				},
+				"category_id": {
+					"type": "string",
+					"format": "uuid"
+				},
+				"created_at": {
+					"type": "string",
+					"format": "date-time"
+				}
+			}
+		},
+		"CarSpecifications": {
+			"type": "object",
+			"properties": {
+				"specifications_id": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format": "uuid"
+					}
+				}
+			}
+		},
+		"AvailableCars": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"format": "uuid"
+					},
+					"available": {
+						"type": "boolean"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"daily_rate": {
+						"type": "number"
+					},
+					"license_plate": {
+						"type": "string"
+					},
+					"fine_amount": {
+						"type": "number"
+					},
+					"brand": {
+						"type": "string"
+					},
+					"category_id": {
+						"type": "string"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			}
+		},
+		"CreatedCarSpecifications": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"format": "uuid"
+					},
+					"available": {
+						"type": "boolean"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"daily_rate": {
+						"type": "number"
+					},
+					"license_plate": {
+						"type": "string"
+					},
+					"fine_amount": {
+						"type": "number"
+					},
+					"brand": {
+						"type": "string"
+					},
+					"category_id": {
+						"type": "string"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"specifications": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "string",
+									"format": "uuid"
+								},
+								"name": {
+									"type": "string"
+								},
+								"description": {
+									"type": "string"
+								},
+								"created_at": {
+									"type": "string",
+									"format": "date-time"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"Token": {
+			"type": "object",
+			"properties": {
+				"token": {
+					"type": "string"
+				},
+				"user": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string"
+						},
+						"email": {
+							"type": "string",
+							"format": "email"
+						}
+					}
+				},
+				"refresh_token": {
 					"type": "string"
 				}
 			}
-		}
-	},
-	"components": {
-		"securitySchemes": {
-			"bearerAuth": {
-				"type": "http",
-				"scheme": "bearer",
-				"bearerFormat": "JWT"
+		},
+		"RefreshToken": {
+			"type": "object",
+			"properties": {
+				"refresh_token": {
+					"type": "string"
+				},
+				"token": {
+					"type": "string"
+				}
+			}
+		},
+		"UserProfile": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string",
+					"format": "uuid"
+				},
+				"name": {
+					"type": "string"
+				},
+				"email": {
+					"type": "string",
+					"format": "email"
+				},
+				"avatar": {
+					"type": "string",
+					"nullable": "true"
+				},
+				"driver_license": {
+					"type": "string"
+				},
+				"avatar_url": {
+					"type": "string",
+					"nullable": "true"
+				}
+			}
+		},
+		"NewUser": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"email": {
+					"type": "string",
+					"format": "email"
+				},
+				"password": {
+					"type": "string",
+					"format": "password"
+				},
+				"driver_license": {
+					"type": "string"
+				}
+			}
+		},
+		"CreatedRental": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string",
+					"format": "uuid"
+				},
+				"car_id": {
+					"type": "string",
+					"format": "uuid"
+				},
+				"user_id": {
+					"type": "string",
+					"format": "uuid"
+				},
+				"expected_return_date": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"created_at": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"updated_at": {
+					"type": "string",
+					"format": "date-time"
+				}
+			}
+		},
+		"DevolutionRental": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string",
+					"format": "uuid"
+				},
+				"car_id": {
+					"type": "string",
+					"format": "uuid"
+				},
+				"user_id": {
+					"type": "string",
+					"format": "uuid"
+				},
+				"start_date": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"end_date": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"expected_return_date": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"total": {
+					"type": "number"
+				},
+				"created_at": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"updated_at": {
+					"type": "string",
+					"format": "date-time"
+				}
+			}
+		},
+		"AllUserRentals": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"format": "uuid"
+					},
+					"car_id": {
+						"type": "string",
+						"format": "uuid"
+					},
+					"user_id": {
+						"type": "string",
+						"format": "uuid"
+					},
+					"start_date": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"end_date": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"expected_return_date": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"total": {
+						"type": "number"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updated_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"car": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string",
+								"format": "uuid"
+							},
+							"available": {
+								"type": "boolean"
+							},
+							"name": {
+								"type": "string"
+							},
+							"description": {
+								"type": "string"
+							},
+							"daily_rate": {
+								"type": "number"
+							},
+							"license_plate": {
+								"type": "string"
+							},
+							"fine_amount": {
+								"type": "number"
+							},
+							"brand": {
+								"type": "string"
+							},
+							"category_id": {
+								"type": "string",
+								"format": "uuid"
+							},
+							"created_at": {
+								"type": "string",
+								"format": "date-time"
+							}
+						}
+					}
+				}
+			}
+		},
+		"ForgotPassword": {
+			"type": "object",
+			"properties": {
+				"email": {
+					"type": "string",
+					"format": "email"
+				}
+			}
+		},
+    "ResetPassword": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+		"components": {
+			"securitySchemes": {
+				"bearerAuth": {
+					"type": "http",
+					"scheme": "bearer",
+					"bearerFormat": "JWT"
+				}
 			}
 		}
 	}

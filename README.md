@@ -1,87 +1,72 @@
-# Cadastro de carro
+<h2 align="center"> 
+	RENTX 
+</h2>
 
-**RF**
-- Deve ser possível cadastrar um novo carro.
+## O que é Rentx:
 
-**RN**
-- Não deve ser possível cadastrar um carro com uma placa já existente.
-- O carro deve ser cadastrado, por padrão com disponibilidade.
-- O usuário responsável pelo cadastro deve ser um usuário administrador.
+Rentx é um sistema de gerenciamento feito para uma agência de aluguel de carros, o projeto foi desenvolvido para estudos seguindo a trilha de node.js do ignite da rocktseat, ele visa facilitar a vida dos funcionários e deixar a administração dos aluguéis e dos veículos mais simples e ágil.
 
-# Listagem de carros
+## Quais são as funcionalidades desse sistema?
 
-**RF** 
-- Deve ser possível listar todos os carros disponíveis.
-- Deve ser possível listar todos os carros disponíveis pelo nome da categoria.
-- Deve ser possível listar todos os carros disponíveis pelo nome da marca.
-- Deve ser possível listar todos os carros disponíveis pelo nome da carro. 
+O sistema conta com as seguintes funcionalidades:
+- Autenticação de usuário
+- Cadastro de usuário
+- Cadastro de veículo
+- Cadastro de categorias
+- Cadastro de especificações
+- Cadastro e devolução de aluguel
 
-**RN**
-- O usuário não precisa estare logado no sistema.
+Caso queira ver as funcionalidades por completo e de modo técnico acesse a documentação do projeto ([clique aqui](#docs) para ver como acessá-la).
 
-# Cadastro de especificação do carro
+## Pré-requisitos
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Git](https://git-scm.com/downloads), [Docker](https://www.docker.com/get-started/) e [Insominia](https://insomnia.rest/download) ou [Postman](https://www.postman.com/downloads/).
 
-**RF**
-- Deve ser possível cadastrar uma especificação para um carro.
+## 🎲 Rodando a API
 
-**RN**
-- Não deve ser possível cadastrar uma especificação para um carro não cadastrado.
-- Não deve ser possível cadastrar uma especificação já existente para o mesmo carro.
-- O usuário responsável pelo cadastro deve ser um usuário administrador.
+```bash
+# Clone este repositório
+$ git clone <https://github.com/CaioVinicius7/ignite-node-rentx.git>
 
-# Cadastro de imagens do carro
+# Acesse a pasta do projeto no terminal/cmd
+$ ignite-node-rentx
 
-**RF**
-- Deve ser possível cadastrar a imagem do carro.
+# Faça o build dos containers
+$ docker-compose build
 
-**RNF**
-- Utilizar o multer para upload dos arquivos.
+# Execute os containers
+$ docker-compose up -d
 
-**RN**
-- O usuário deve poder cadastrar mais de uma imagem para o mesmo carro.
-- O usuário responsável pelo cadastro deve ser um usuário administrador.
+# Rode as migrations
+$ npm run typeorm migration:run ou yarn typeorm migration:run
 
-# Aluguel de carros
+# Rode a seed de usuários administradores
+$ npm run seed:admin ou yarn seed:admin
 
-**RF**
-- Deve ser possível cadastrar o aluguel.
+# O servidor ficara ativo na porta:3333 - acesse <http://localhost:3333>
+```
 
-**RN**
-- O aluguel deve ter duração miníma de 24 horas.
-- Não deve ser possível cadastrar um novo aluguel caso já exista um aberto para o mesmo usuário.
-- Não deve ser possível cadastrar um novo aluguel caso já exista um aberto para o mesmo carro.
-- O usuário deve estar logado na aplicação.
-- Ao realizar um alugel o status do carro deverá ser alterado para indisponível.
+<div id="docs"> </div>
 
-# Devolução de carro
+## Acessando a documentação
+Para ter acesso a documentação utilize a rota /api-docs, como no exemplo abaixo ou [clique aqui](http://localhost:3333/api-docs/).
+```bash
+http://localhost:3333/api-docs/
+```
 
-**RF**
-- Deve ser possível fazer a devolução de um carro que estava alugado
+OBS: Na raiz do projeto existe um arquivo ```collection.json```, importe no insomnia ou postman para ter acesso a todas as rotas sem necesidade de adicioná-las do zero.
 
-**RN**
-- Se o carro for devolvido com menos de 24 horas, deverá ser cobrada diária completa.
-- Ao realizar a dvolução, o carro deverá ser liberado para outro aluguel.
-- Ao realizar a devolução, o usuário deverá ser liberado oara outro aluguel.
-- Ao realizar a devolução, deverá ser calculado o total do aluguel.
-- Caso o horário de devolução seja superior ao horário previsto de entrega, deverá ser cobrado multa proporcional aos dias de atraso.
-- caso haja multa, deverá ser somado ao valor total do aluguel. 
-- O usuário deve estar logado na aplicação. 
+## Autor
+---
 
-# Listagem de aluguel para usuário
+<a href="https://www.facebook.com/caio.pereira.94695">
+ <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/62827681?s=400&u=f0b18831e6690a901f956d637933b9ee2dca3104&v=4" width="100px;" alt=""/>
+ <br>
+ <h2><b>Caio Vinícius</b></h2></a>
 
-**RF**
-- Deve ser possível realizar a busca de todos os alugueis para o usuário
+<h4> Feito com muito carinho e dedicação :) </h4>
 
-**RN**
-- O usuário deve estar logado na aplicação
+<br>
 
-# Recuperar Senha
-
-**RF**
-- Deve ser possível o usuário recuperar a senha informando o e-mail
-- O usuário deve receber um e-mail com o passo a passo para a recuperação de senha
-- O usuário deve conseguir inserir uma senha nova
-
-**RN**
-- O usuário precisa informar uma senha nova
-- O link enviado paa a recuperação deve expirar em 3 horas
+[![Linkedin Badge](https://img.shields.io/badge/-caio%20pereira-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/tgmarinho/)](https://www.linkedin.com/in/caio-pereira-87a761200) 
+[![Gmail Badge](https://img.shields.io/badge/-caio1525pereira@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:caio1525pereira@gmail.com)](mailto:caio1525pereira@gmail.com)
