@@ -26,10 +26,15 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 
 ```bash
 # Clone este repositório
-$ git clone <https://github.com/CaioVinicius7/ignite-node-rentx.git>
+$ git clone https://github.com/CaioVinicius7/ignite-node-rentx.git
 
 # Acesse a pasta do projeto no terminal/cmd
-$ ignite-node-rentx
+$ cd ignite-node-rentx
+
+# Acesse o projeto pelo vs code 
+$ code .
+
+# crie os arquivos .env e ormconfig.json seguindo os arqivos de exemplo
 
 # Faça o build dos containers
 $ docker-compose build
@@ -46,9 +51,11 @@ $ npm run seed:admin ou yarn seed:admin
 # O servidor ficara ativo na porta:3333 - acesse <http://localhost:3333>
 ```
 
+OBS: Não esqueça de criar um arquivo.env e ormconfig.json antes de buildar os containers.
+
 <div id="docs"> </div>
 
-## Acessando a documentação
+## 📜 Acessando a documentação
 Para ter acesso a documentação utilize a rota /api-docs, como no exemplo abaixo ou [clique aqui](http://localhost:3333/api-docs/).
 ```bash
 http://localhost:3333/api-docs/
