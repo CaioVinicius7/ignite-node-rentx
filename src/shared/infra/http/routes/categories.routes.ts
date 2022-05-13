@@ -2,6 +2,7 @@ import { Router } from "express";
 import multer from "multer";
 
 import { CreateCategoryController } from "@modules/cars/useCases/createCategory/CreateCategoryController";
+import { DeleteCategoryController } from "@modules/cars/useCases/deleteCategory/DeleteCategoryController";
 import { ImportCategoryController } from "@modules/cars/useCases/importCategory/ImportCategoryController";
 import { ListCategoriesController } from "@modules/cars/useCases/listCategories/ListCategoriesController";
 
@@ -17,6 +18,7 @@ const upload = multer({
 const createCategoryController = new CreateCategoryController();
 const importCategoryController = new ImportCategoryController();
 const listCategoriesController = new ListCategoriesController();
+const deleteCategoryController = new DeleteCategoryController();
 
 categoriesRoutes.post(
 	"/",
@@ -26,6 +28,13 @@ categoriesRoutes.post(
 );
 
 categoriesRoutes.get("/", listCategoriesController.handle);
+
+categoriesRoutes.delete(
+	"/:id",
+	ensureAuthenticated,
+	ensureAdmin,
+	deleteCategoryController.handle
+);
 
 categoriesRoutes.post(
 	"/import",

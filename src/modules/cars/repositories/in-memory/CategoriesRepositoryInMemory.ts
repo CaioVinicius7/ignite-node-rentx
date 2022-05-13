@@ -21,7 +21,7 @@ class CategoriesRepositoryInMemory implements ICategoriesRepository {
 		return list;
 	}
 
-	async create({ name, description }: ICreateCategoryDTO): Promise<void> {
+	async create({ name, description }: ICreateCategoryDTO): Promise<Category> {
 		const category = new Category();
 
 		Object.assign(category, {
@@ -30,6 +30,19 @@ class CategoriesRepositoryInMemory implements ICategoriesRepository {
 		});
 
 		this.categories.push(category);
+
+		return category;
+	}
+
+	async findById(id: string): Promise<Category> {
+		return this.categories.find((category) => category.id === id);
+	}
+
+	async delete(id: string): Promise<void> {
+		const category = this.categories.findIndex(
+			(category) => category.id === id
+		);
+		this.categories.splice(category);
 	}
 }
 

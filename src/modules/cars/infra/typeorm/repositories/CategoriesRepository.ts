@@ -14,13 +14,15 @@ class CategoriesRepository implements ICategoriesRepository {
 		this.repository = getRepository(Category);
 	}
 
-	async create({ description, name }: ICreateCategoryDTO): Promise<void> {
+	async create({ description, name }: ICreateCategoryDTO): Promise<Category> {
 		const category = this.repository.create({
 			description,
 			name
 		});
 
 		await this.repository.save(category);
+
+		return category;
 	}
 
 	async list(): Promise<Category[]> {
@@ -34,6 +36,16 @@ class CategoriesRepository implements ICategoriesRepository {
 		});
 
 		return category;
+	}
+
+	async findById(id: string): Promise<Category> {
+		const category = await this.repository.findOne(id);
+
+		return category;
+	}
+
+	async delete(id: string): Promise<void> {
+		await this.repository.delete(id);
 	}
 }
 

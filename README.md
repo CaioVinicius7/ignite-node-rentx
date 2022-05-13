@@ -56,7 +56,7 @@ OBS: Não esqueça de criar um arquivo.env e ormconfig.json antes de buildar os 
 <div id="docs"> </div>
 
 ## 📜 Acessando a documentação
-Para ter acesso a documentação utilize a rota /api-docs após a inicialização aplicação, como no exemplo abaixo ou [clique aqui](http://localhost:3333/api-docs/).
+Para ter acesso a documentação utilize a rota /api-docs após a inicialização da aplicação, como no exemplo abaixo ou [clique aqui](http://localhost:3333/api-docs/).
 ```bash
 http://localhost:3333/api-docs/
 ```
