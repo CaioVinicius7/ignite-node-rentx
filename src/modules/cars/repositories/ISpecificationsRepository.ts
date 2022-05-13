@@ -13,6 +13,8 @@ interface ISpecificationRepository {
 	findByName(name: string): Promise<Specification>;
 	findByIds(ids: string[]): Promise<Specification[]>;
 	listAllSpecifications(): Promise<Specification[]>;
+	findById(id: string): Promise<Specification>;
+	delete(id: string): Promise<void>;
 }
 
 export { ISpecificationRepository, ICreateSpecificationDTO };

@@ -46,6 +46,15 @@ class SpecificationsRepository implements ISpecificationRepository {
 
 		return allSpecifications;
 	}
+
+	async findById(id: string): Promise<Specification> {
+		const specification = await this.repository.findOne(id);
+		return specification;
+	}
+
+	async delete(id: string): Promise<void> {
+		await this.repository.delete(id);
+	}
 }
 
 export { SpecificationsRepository };

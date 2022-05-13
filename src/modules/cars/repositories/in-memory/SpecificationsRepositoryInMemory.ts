@@ -42,6 +42,17 @@ class SpecificationsRepositoryInMemory implements ISpecificationRepository {
 		const allSpecifications = this.specifications;
 		return allSpecifications;
 	}
+
+	async findById(id: string): Promise<Specification> {
+		return this.specifications.find((specification) => specification.id === id);
+	}
+
+	async delete(id: string): Promise<void> {
+		const specification = this.specifications.findIndex(
+			(specification) => specification.id === id
+		);
+		this.specifications.splice(specification);
+	}
 }
 
 export { SpecificationsRepositoryInMemory };

@@ -128,10 +128,10 @@
 						"name": "token",
 						"in": "query",
 						"description": "Token received by email to reset password",
-						"format": "uuid",
 						"required": true,
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"format": "uuid"
 						}
 					}
 				],
@@ -399,6 +399,40 @@
 				}
 			}
 		},
+		"/specifications/{id}": {
+			"delete": {
+				"tags": [
+					"Specifications"
+				],
+				"summary": "Delete a specification",
+				"description": "Delete a specification",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Specification id",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": "uuid"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success"
+					},
+					"404": {
+						"description": "Specification does not exists!"
+					}
+				}
+			}
+		},
 		"/cars": {
 			"post": {
 				"tags": [
@@ -454,10 +488,10 @@
 						"name": "id",
 						"in": "path",
 						"description": "Car id",
-						"format": "uuid",
 						"required": true,
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"format": "uuid"
 						}
 					}
 				],
@@ -503,10 +537,10 @@
 						"name": "id",
 						"in": "path",
 						"description": "Car id",
-						"format": "uuid",
 						"required": true,
 						"schema": {
-							"type": "string"
+							"type": "string",
+						"format": "uuid"
 						}
 					}
 				],
