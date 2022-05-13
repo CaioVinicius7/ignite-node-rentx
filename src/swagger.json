@@ -373,6 +373,30 @@
 						"description": "Specification already exists!"
 					}
 				}
+			},
+			"get": {
+				"tags": [
+					"Specifications"
+				],
+				"summary": "List all specifications",
+				"description": "List all specifications",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/definitions/AllSpecifications"
+								}
+							}
+						}
+					}
+				}
 			}
 		},
 		"/cars": {
@@ -1084,13 +1108,35 @@
         }
       }
     },
-		"components": {
-			"securitySchemes": {
-				"bearerAuth": {
-					"type": "http",
-					"scheme": "bearer",
-					"bearerFormat": "JWT"
+		"AllSpecifications": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"format": "uuid"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					}					
 				}
+			}
+		}
+	},
+	"components": {
+		"securitySchemes": {
+			"bearerAuth": {
+				"type": "http",
+				"scheme": "bearer",
+				"bearerFormat": "JWT"
 			}
 		}
 	}
