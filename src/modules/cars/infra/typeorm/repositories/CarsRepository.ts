@@ -69,7 +69,7 @@ class CarsRepository implements ICarsRepository {
 			carsQuery.andWhere("category_id = :category_id", { category_id });
 		}
 
-		carsQuery.innerJoinAndSelect("c.specifications", "specifications");
+		carsQuery.leftJoinAndSelect("c.specifications", "specifications");
 
 		const cars = await carsQuery.getMany();
 
