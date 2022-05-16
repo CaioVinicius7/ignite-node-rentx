@@ -10,7 +10,7 @@ class DeleteCategoryUseCase {
 		private categoriesRepository: ICategoriesRepository
 	) {}
 
-	async execute(id): Promise<void> {
+	async execute(id: string): Promise<void> {
 		const category = await this.categoriesRepository.findById(id);
 
 		if (!category) {

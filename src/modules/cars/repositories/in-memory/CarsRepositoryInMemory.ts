@@ -70,6 +70,11 @@ class CarsRepositoryInMemory implements ICarsRepository {
 
 		this.cars[findIndex].available = available;
 	}
+
+	async delete(id: string): Promise<void> {
+		const car = this.cars.findIndex((car) => car.id === id);
+		this.cars.splice(car);
+	}
 }
 
 export { CarsRepositoryInMemory };

@@ -505,6 +505,43 @@
 				}
 			}
 		},
+		"/cars/{id}": {
+			"delete": {
+				"tags": [
+					"Cars"
+				],
+				"summary": "Delete a car",
+				"description": "Delete a car",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "car id",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": "uuid"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success"
+					},
+					"400": {
+						"description": "Car cannot be excluded because involved in an rental currently"
+					},
+					"404": {
+						"description": "Car does not exists!"
+					}
+				}
+			}
+		},
 		"/cars/images/{id}": {
 			"post": {
 				"tags": [

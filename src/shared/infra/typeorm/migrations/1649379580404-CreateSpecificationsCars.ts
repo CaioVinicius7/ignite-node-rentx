@@ -37,8 +37,8 @@ export class CreateSpecificationsCars1649379580404
 				referencedTableName: "specifications",
 				referencedColumnNames: ["id"],
 				columnNames: ["specification_id"],
-				onDelete: "SET NULL",
-				onUpdate: "SET NULL"
+				onDelete: "CASCADE",
+				onUpdate: "CASCADE"
 			})
 		);
 
@@ -49,8 +49,8 @@ export class CreateSpecificationsCars1649379580404
 				referencedTableName: "cars",
 				referencedColumnNames: ["id"],
 				columnNames: ["car_id"],
-				onDelete: "SET NULL",
-				onUpdate: "SET NULL"
+				onDelete: "CASCADE",
+				onUpdate: "CASCADE"
 			})
 		);
 	}
